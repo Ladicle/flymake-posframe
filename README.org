@@ -1,3 +1,28 @@
 * flymake-posframe
 
+Showing flymake diagnostics at point using posframe
+
 [[file:screenshot/flymake-posframe.gif]]
+
+** Installation
+
+#+BEGIN_SRC emacs-lisp
+(use-package posframe)
+(use-package flymake-posframe
+  :load-path "<path to 'flymake-posframe'>"
+  :hook (flymake-mode . flymake-posframe-mode))
+#+END_SRC
+
+** Customization
+
+*Variables*
+
+- flymake-posframe-error-prefix :: String to be displayed before every error line.
+- flymake-posframe-warning-prefix :: String to be displayed before every warning line.
+- flymake-posframe-note-prefix :: String to be displayed before every note line.
+- flymake-posframe-buffer :: Name of the flymake posframe buffer.
+
+*faces*
+
+- flymake-posframe-background-face :: The background color of the flymake-posframe frame.
+- flymake-posframe-foreground-face :: The foreground color of the flymake-posframe frame.
