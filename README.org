@@ -1,1 +1,3 @@
 * flymake-posframe
+
+[[file:screenshot/flymake-posframe.gif]]
