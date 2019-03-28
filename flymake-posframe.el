@@ -97,7 +97,7 @@ Only the `foreground' is used in this face."
 	   :foreground-color (face-foreground 'flymake-posframe-foreground-face nil t)
 	   :background-color (face-background 'flymake-posframe-background-face nil t)
            :string (concat (propertize
-			    (case (flymake--diag-type diag)
+			    (pcase (flymake--diag-type diag)
                                  (:error flymake-posframe-error-prefix)
                                  (:warning flymake-posframe-warning-prefix)
                                  (:note flymake-posframe-note-prefix))
