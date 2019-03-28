@@ -49,7 +49,7 @@
   :type '(choice (const :tag "No prefix" nil)
                  string))
 
-(defcustom flymake-posframe-buffer "*flymake-posframe-buffer*"
+(defcustom flymake-posframe-buffer " *flymake-posframe-buffer*"
   "Name of the flymake posframe buffer."
   :group 'flymake-posframe
   :type 'string)
