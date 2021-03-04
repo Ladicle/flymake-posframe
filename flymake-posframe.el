@@ -30,6 +30,7 @@
 
 (require 'flymake)
 (require 'posframe)
+(require 'subr-x)
 
 (defcustom flymake-posframe-error-prefix "!! "
   "String to be displayed before every error line."
@@ -84,8 +85,7 @@ Only the `foreground' is used in this face."
 
 (defun flymake-posframe-display ()
   (when flymake-mode
-    (if-let (diag (and flymake-mode
-                       (get-char-property (point) 'flymake-diagnostic)))
+    (if-let ((diag (get-char-property (point) 'flymake-diagnostic)))
         (unless (and (eq diag flymake-posframe-last-diag)
                      (frame-visible-p (buffer-local-value 'posframe--frame (get-buffer flymake-posframe-buffer))))
           (setq flymake-posframe-last-diag diag)
@@ -104,10 +104,10 @@ Only the `foreground' is used in this face."
                                'face 'warning)
 			   (flymake--diag-text diag)))
 
-	  (setq current-posframe-frame
-		(buffer-local-value 'posframe--frame (get-buffer flymake-posframe-buffer)))
-	  (redirect-frame-focus current-posframe-frame (frame-parent current-posframe-frame))
-	  
+	  (let ((current-posframe-frame
+		 (buffer-local-value 'posframe--frame (get-buffer flymake-posframe-buffer))))
+	    (redirect-frame-focus current-posframe-frame (frame-parent current-posframe-frame)))
+
 	  (dolist (hook flymake-posframe-hide-posframe-hooks)
 	    (add-hook hook #'flymake-posframe-hide nil t)))
       (flymake-posframe-hide))))
