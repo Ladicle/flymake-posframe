@@ -99,8 +99,11 @@ Only the `foreground' is used in this face."
            :string (concat (propertize
 			    (pcase (flymake--diag-type diag)
                                  (:error flymake-posframe-error-prefix)
+                                 (eglot-error flymake-posframe-error-prefix)
                                  (:warning flymake-posframe-warning-prefix)
-                                 (:note flymake-posframe-note-prefix))
+                                 (eglot-warning flymake-posframe-warning-prefix)
+                                 (:note flymake-posframe-note-prefix)
+                                 (eglot-note flymake-posframe-note-prefix))
                                'face 'warning)
 			   (flymake--diag-text diag)))
 
