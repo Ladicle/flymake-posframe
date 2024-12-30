@@ -50,10 +50,31 @@
   :type '(choice (const :tag "No prefix" nil)
                  string))
 
+(defcustom flymake-posframe-unknown-prefix "* "
+  "String to be displayed before every unknown line."
+  :group 'flymake-posframe
+  :type '(choice (const :tag "No prefix" nil)
+                 string))
+
 (defcustom flymake-posframe-buffer " *flymake-posframe-buffer*"
   "Name of the flymake posframe buffer."
   :group 'flymake-posframe
   :type 'string)
+
+(defcustom flymake-posframe-internal-border-width 6
+  "The number of internal border width of the flymake posframe width"
+  :group 'flymake-posframe
+  :type 'number)
+
+(defcustom flymake-posframe-max-width 75
+  "Maximum number of the flymake posframe width"
+  :group 'flymake-posframe
+  :type 'number)
+
+(defcustom flymake-posframe-parameters nil
+  "The frame parameters used by flymake-posframe."
+  :type 'string
+  :group 'flymake-posframe)
 
 (defvar-local flymake-posframe-last-diag nil
   "Show the error at point.")
@@ -91,25 +112,28 @@ Only the `foreground' is used in this face."
           (setq flymake-posframe-last-diag diag)
           (posframe-show
            flymake-posframe-buffer
-	   :internal-border-width 3
-	   :left-fringe 1
-	   :right-fringe 1
-	   :foreground-color (face-foreground 'flymake-posframe-foreground-face nil t)
-	   :background-color (face-background 'flymake-posframe-background-face nil t)
+           :internal-border-width flymake-posframe-internal-border-width
+           :max-width flymake-posframe-max-width
+           :foreground-color (face-foreground 'flymake-posframe-foreground-face nil t)
+           :background-color (face-background 'flymake-posframe-background-face nil t)
            :string (concat (propertize
-			    (pcase (flymake--diag-type diag)
-                                 (:error flymake-posframe-error-prefix)
-                                 (:warning flymake-posframe-warning-prefix)
-                                 (:note flymake-posframe-note-prefix))
-                               'face 'warning)
-			   (flymake--diag-text diag)))
+                            (pcase (flymake--lookup-type-property
+                                    (flymake--diag-type diag)
+                                    'flymake-category)
+                              ('flymake-error flymake-posframe-error-prefix)
+                              ('flymake-warning flymake-posframe-warning-prefix)
+                              ('flymake-note flymake-posframe-note-prefix)
+                              (_ flymake-posframe-unknown-prefix))
+                            'face 'warning)
+                           (flymake--diag-text diag))
+           :override-parameters flymake-posframe-parameters)
 
-	  (let ((current-posframe-frame
-		 (buffer-local-value 'posframe--frame (get-buffer flymake-posframe-buffer))))
-	    (redirect-frame-focus current-posframe-frame (frame-parent current-posframe-frame)))
+    (let ((current-posframe-frame
+     (buffer-local-value 'posframe--frame (get-buffer flymake-posframe-buffer))))
+      (redirect-frame-focus current-posframe-frame (frame-parent current-posframe-frame)))
 
-	  (dolist (hook flymake-posframe-hide-posframe-hooks)
-	    (add-hook hook #'flymake-posframe-hide nil t)))
+    (dolist (hook flymake-posframe-hide-posframe-hooks)
+      (add-hook hook #'flymake-posframe-hide nil t)))
       (flymake-posframe-hide))))
 
 (define-minor-mode flymake-posframe-mode
