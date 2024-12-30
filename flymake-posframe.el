@@ -6,7 +6,7 @@
 ;; URL: https://github.com/Ladicle/flymake-posframe
 ;; Keywords: convenience, languages, tools
 ;; Version: 1.0.0
-;; Package-Requires: ((emacs "26.1") (posframe "0.4.2"))
+;; Package-Requires: ((emacs "26.1") (posframe "1.4.4"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -61,20 +61,30 @@
   :group 'flymake-posframe
   :type 'string)
 
-(defcustom flymake-posframe-internal-border-width 6
-  "The number of internal border width of the flymake posframe width"
+(defcustom flymake-posframe-timeout 0
+  "Number of seconds after which the posframe will auto-hide."
   :group 'flymake-posframe
-  :type 'number)
+  :type 'integer)
+
+(defcustom flymake-posframe-internal-border-width 6
+  "Number of the internal border width for the flymake posframe."
+  :group 'flymake-posframe
+  :type 'integer)
 
 (defcustom flymake-posframe-max-width 75
-  "Maximum number of the flymake posframe width"
+  "Maximum number of the flymake posframe width."
   :group 'flymake-posframe
-  :type 'number)
+  :type 'integer)
+
+(defcustom flymake-posframe-max-hight nil
+  "Maximum number of the flymake posframe hight."
+  :group 'flymake-posframe
+  :type 'integer)
 
 (defcustom flymake-posframe-parameters nil
   "The frame parameters used by flymake-posframe."
-  :type 'string
-  :group 'flymake-posframe)
+  :group 'flymake-posframe
+  :type 'alist)
 
 (defvar-local flymake-posframe-last-diag nil
   "Show the error at point.")
@@ -114,8 +124,11 @@ Only the `foreground' is used in this face."
            flymake-posframe-buffer
            :internal-border-width flymake-posframe-internal-border-width
            :max-width flymake-posframe-max-width
+           :max-height flymake-posframe-max-hight
+           :timeout flymake-posframe-timeout
            :foreground-color (face-foreground 'flymake-posframe-foreground-face nil t)
            :background-color (face-background 'flymake-posframe-background-face nil t)
+           :override-parameters flymake-posframe-parameters
            :string (concat (propertize
                             (pcase (flymake--lookup-type-property
                                     (flymake--diag-type diag)
@@ -125,15 +138,14 @@ Only the `foreground' is used in this face."
                               ('flymake-note flymake-posframe-note-prefix)
                               (_ flymake-posframe-unknown-prefix))
                             'face 'warning)
-                           (flymake--diag-text diag))
-           :override-parameters flymake-posframe-parameters)
+                           (flymake--diag-text diag)))
 
-    (let ((current-posframe-frame
-     (buffer-local-value 'posframe--frame (get-buffer flymake-posframe-buffer))))
-      (redirect-frame-focus current-posframe-frame (frame-parent current-posframe-frame)))
+          (let ((current-posframe-frame
+                 (buffer-local-value 'posframe--frame (get-buffer flymake-posframe-buffer))))
+            (redirect-frame-focus current-posframe-frame (frame-parent current-posframe-frame)))
 
-    (dolist (hook flymake-posframe-hide-posframe-hooks)
-      (add-hook hook #'flymake-posframe-hide nil t)))
+          (dolist (hook flymake-posframe-hide-posframe-hooks)
+            (add-hook hook #'flymake-posframe-hide nil t)))
       (flymake-posframe-hide))))
 
 (define-minor-mode flymake-posframe-mode
