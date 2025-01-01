@@ -21,6 +21,7 @@ Showing flymake diagnostics at point using posframe
 - flymake-posframe-warning-prefix :: String to be displayed before every warning line.
 - flymake-posframe-note-prefix :: String to be displayed before every note line.
 - flymake-posframe-buffer :: Name of the flymake posframe buffer.
+- flymake-posframe-default-prefix :: String to be displayed before every default line.
 - flymake-posframe-timeout :: Number of seconds after which the posframe will auto-hide.
 - flymake-posframe-internal-border-width :: Number of the internal border width for the flymake posframe.
 - flymake-posframe-max-width :: Maximum number of the flymake posframe width.
@@ -33,3 +34,4 @@ Showing flymake diagnostics at point using posframe
 - flymake-posframe-prefix-error-face :: The prefix face for the flymake-posframe error dialog.
 - flymake-posframe-prefix-warning-face :: The prefix face for the flymake-posframe warning dialog.
 - flymake-posframe-prefix-note-face :: The prefix face for the flymake-posframe default dialog.
+- flymake-posframe-prefix-default-face :: The prefix face for the flymake-posframe default dialog.
