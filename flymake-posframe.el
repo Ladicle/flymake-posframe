@@ -39,25 +39,25 @@
 (require 'posframe)
 (require 'subr-x)
 
-(defcustom flymake-posframe-error-prefix "!! "
+(defcustom flymake-posframe-error-prefix "!"
   "String to be displayed before every error line."
   :group 'flymake-posframe
   :type '(choice (const :tag "No prefix" nil)
                  string))
 
-(defcustom flymake-posframe-warning-prefix "! "
+(defcustom flymake-posframe-warning-prefix "\u26a0"
   "String to be displayed before every warning line."
   :group 'flymake-posframe
   :type '(choice (const :tag "No prefix" nil)
                  string))
 
-(defcustom flymake-posframe-note-prefix "? "
+(defcustom flymake-posframe-note-prefix "\u2139"
   "String to be displayed before every note line."
   :group 'flymake-posframe
   :type '(choice (const :tag "No prefix" nil)
                  string))
 
-(defcustom flymake-posframe-unknown-prefix "* "
+(defcustom flymake-posframe-unknown-prefix "?"
   "String to be displayed before every unknown line."
   :group 'flymake-posframe
   :type '(choice (const :tag "No prefix" nil)
@@ -139,6 +139,7 @@
                               ('flymake-note flymake-posframe-note-prefix)
                               (_ flymake-posframe-unknown-prefix))
                             'face 'warning)
+                           " "
                            (flymake--diag-text diag)))
 
           (let ((current-posframe-frame
