@@ -57,8 +57,8 @@
   :type '(choice (const :tag "No prefix" nil)
                  string))
 
-(defcustom flymake-posframe-unknown-prefix "?"
-  "String to be displayed before every unknown line."
+(defcustom flymake-posframe-default-prefix "?"
+  "String to be displayed before every default line."
   :group 'flymake-posframe
   :type '(choice (const :tag "No prefix" nil)
                  string))
@@ -137,7 +137,7 @@
                               ('flymake-error flymake-posframe-error-prefix)
                               ('flymake-warning flymake-posframe-warning-prefix)
                               ('flymake-note flymake-posframe-note-prefix)
-                              (_ flymake-posframe-unknown-prefix))
+                              (_ flymake-posframe-default-prefix))
                             'face 'warning)
                            " "
                            (flymake--diag-text diag)))
