@@ -1,8 +1,9 @@
 ;;; flymake-posframe.el --- Display flymake diagnostics at point  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2018 Aya Igarashi
+;; Copyright (C) 2018-2025 Aya Igarashi
 
 ;; Author: Aya Igarashi <ladiclexxx@gmail.com>
+;; Maintainer: Aya Igarashi <ladiclexxx@gmail.com>
 ;; URL: https://github.com/Ladicle/flymake-posframe
 ;; Keywords: convenience, languages, tools
 ;; Version: 1.0.0
@@ -25,6 +26,12 @@
 
 ;; Display flymake message at point using a posframe.
 ;; Check out the README for more information.
+
+;;;; Setup
+
+;; (with-eval-after-load 'flymake
+;;    (require 'flymake-posframe)
+;;    (add-hook 'flymake-mode-hook #'flymake-posframe-mode))
 
 ;;; Code:
 
@@ -115,6 +122,7 @@ Only the `foreground' is used in this face."
     (remove-hook hook #'flymake-posframe-hide t)))
 
 (defun flymake-posframe-display ()
+  "Display diagnostic message on postframe"
   (when flymake-mode
     (if-let ((diag (get-char-property (point) 'flymake-diagnostic)))
         (unless (and (eq diag flymake-posframe-last-diag)
@@ -148,6 +156,7 @@ Only the `foreground' is used in this face."
             (add-hook hook #'flymake-posframe-hide nil t)))
       (flymake-posframe-hide))))
 
+;;;###autoload
 (define-minor-mode flymake-posframe-mode
   "Minor mode for displaying flymake diagnostics at point."
   :lighter nil
