@@ -100,16 +100,9 @@
   '(pre-command-hook post-command-hook focus-out-hook)
   "The hooks which should trigger automatic removal of the posframe.")
 
-(defface flymake-posframe-background-face
+(defface flymake-posframe-face
   '((t :inherit highlight))
-  "The background color of the flymake-posframe frame.
-Only the `background' is used in this face."
-  :group 'flymake-posframe)
-
-(defface flymake-posframe-foreground-face
-  '((t :inherit highlight))
-  "The background color of the flymake-posframe frame.
-Only the `foreground' is used in this face."
+  "The background color of the flymake-posframe frame."
   :group 'flymake-posframe)
 
 (defun flymake-posframe-get-diagnostic-text ()
@@ -134,8 +127,8 @@ Only the `foreground' is used in this face."
            :max-width flymake-posframe-max-width
            :max-height flymake-posframe-max-hight
            :timeout flymake-posframe-timeout
-           :foreground-color (face-foreground 'flymake-posframe-foreground-face nil t)
-           :background-color (face-background 'flymake-posframe-background-face nil t)
+           :foreground-color (face-foreground 'flymake-posframe-face nil t)
+           :background-color (face-background 'flymake-posframe-face nil t)
            :override-parameters flymake-posframe-parameters
            :string (concat (propertize
                             (pcase (flymake--lookup-type-property
