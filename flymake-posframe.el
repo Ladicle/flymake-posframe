@@ -106,17 +106,17 @@
   :group 'flymake-posframe)
 
 (defface flymake-posframe-prefix-error-face
-  '((t :inherit error))
+  '((t :inherit flymake-error-echo))
   "The prefix face for the flymake-posframe error dialog."
   :group 'flymake-posframe)
 
 (defface flymake-posframe-prefix-warning-face
-  '((t :inherit warning))
+  '((t :inherit flymake-warning-echo))
   "The prefix face for the flymake-posframe warning dialog."
   :group 'flymake-posframe)
 
 (defface flymake-posframe-prefix-note-face
-  '((t :inherit font-lock-doc-markup-face))
+  '((t :inherit flymake-note-echo))
   "The prefix face for the flymake-posframe default dialog."
   :group 'flymake-posframe)
 
