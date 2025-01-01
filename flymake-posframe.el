@@ -101,13 +101,48 @@
   "The hooks which should trigger automatic removal of the posframe.")
 
 (defface flymake-posframe-face
-  '((t :inherit highlight))
+  '((t :inherit tooltip))
   "The background color of the flymake-posframe frame."
+  :group 'flymake-posframe)
+
+(defface flymake-posframe-prefix-error-face
+  '((t :inherit error))
+  "The prefix face for the flymake-posframe error dialog."
+  :group 'flymake-posframe)
+
+(defface flymake-posframe-prefix-warning-face
+  '((t :inherit warning))
+  "The prefix face for the flymake-posframe warning dialog."
+  :group 'flymake-posframe)
+
+(defface flymake-posframe-prefix-note-face
+  '((t :inherit font-lock-doc-markup-face))
+  "The prefix face for the flymake-posframe default dialog."
+  :group 'flymake-posframe)
+
+(defface flymake-posframe-prefix-default-face
+  '((t :inherit shadow))
+  "The prefix face for the flymake-posframe default dialog."
   :group 'flymake-posframe)
 
 (defun flymake-posframe-get-diagnostic-text ()
   "Get the flymake diagnostic text for the thing at point."
   (flymake--diag-text (get-char-property (point) 'flymake-diagnostic)))
+
+(defun flymake-posframe-get-diagnostic-prefix (dialog)
+  (pcase (flymake--lookup-type-property (flymake--diag-type dialog) 'flymake-category)
+    ('flymake-error
+     '(flymake-posframe-error-prefix
+       flymake-posframe-prefix-error-face))
+    ('flymake-warning
+     '(flymake-posframe-warning-prefix
+       flymake-posframe-prefix-warning-face))
+    ('flymake-note
+     '(flymake-posframe-note-prefix
+       flymake-posframe-prefix-note-face))
+    (_
+     '(flymake-posframe-default-prefix
+       flymake-posframe-prefix-default-face))))
 
 (defun flymake-posframe-hide ()
   (posframe-hide flymake-posframe-buffer)
@@ -117,7 +152,8 @@
 (defun flymake-posframe-display ()
   "Display diagnostic message on postframe"
   (when flymake-mode
-    (if-let ((diag (get-char-property (point) 'flymake-diagnostic)))
+    (if-let* ((diag (get-char-property (point) 'flymake-diagnostic))
+              (prefix (flymake-posframe-get-diagnostic-prefix diag)))
         (unless (and (eq diag flymake-posframe-last-diag)
                      (frame-visible-p (buffer-local-value 'posframe--frame (get-buffer flymake-posframe-buffer))))
           (setq flymake-posframe-last-diag diag)
@@ -130,17 +166,7 @@
            :foreground-color (face-foreground 'flymake-posframe-face nil t)
            :background-color (face-background 'flymake-posframe-face nil t)
            :override-parameters flymake-posframe-parameters
-           :string (concat (propertize
-                            (pcase (flymake--lookup-type-property
-                                    (flymake--diag-type diag)
-                                    'flymake-category)
-                              ('flymake-error flymake-posframe-error-prefix)
-                              ('flymake-warning flymake-posframe-warning-prefix)
-                              ('flymake-note flymake-posframe-note-prefix)
-                              (_ flymake-posframe-default-prefix))
-                            'face 'warning)
-                           " "
-                           (flymake--diag-text diag)))
+           :string (concat (propertize (symbol-value (car prefix)) 'face (cadr prefix)) " " (flymake--diag-text diag)))
 
           (let ((current-posframe-frame
                  (buffer-local-value 'posframe--frame (get-buffer flymake-posframe-buffer))))
