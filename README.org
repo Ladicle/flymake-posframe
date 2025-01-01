@@ -24,7 +24,7 @@ Showing flymake diagnostics at point using posframe
 - flymake-posframe-timeout :: Number of seconds after which the posframe will auto-hide.
 - flymake-posframe-internal-border-width :: Number of the internal border width for the flymake posframe.
 - flymake-posframe-max-width :: Maximum number of the flymake posframe width.
-- flymake-posframe-max-hight :: Maximum number of the flymake posframe hight.
+- flymake-posframe-max-height :: Maximum number of the flymake posframe height.
 - flymake-posframe-parameters :: The frame parameters used by flymake-posframe.
 
 *faces*

@@ -83,8 +83,8 @@
   :group 'flymake-posframe
   :type 'integer)
 
-(defcustom flymake-posframe-max-hight nil
-  "Maximum number of the flymake posframe hight."
+(defcustom flymake-posframe-max-height nil
+  "Maximum number of the flymake posframe height."
   :group 'flymake-posframe
   :type 'integer)
 
@@ -161,7 +161,7 @@
            flymake-posframe-buffer
            :internal-border-width flymake-posframe-internal-border-width
            :max-width flymake-posframe-max-width
-           :max-height flymake-posframe-max-hight
+           :max-height flymake-posframe-max-height
            :timeout flymake-posframe-timeout
            :foreground-color (face-foreground 'flymake-posframe-face nil t)
            :background-color (face-background 'flymake-posframe-face nil t)
