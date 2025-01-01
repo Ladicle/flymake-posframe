@@ -29,5 +29,4 @@ Showing flymake diagnostics at point using posframe
 
 *faces*
 
-- flymake-posframe-background-face :: The background color of the flymake-posframe frame.
-- flymake-posframe-foreground-face :: The foreground color of the flymake-posframe frame.
+- flymake-posframe-background :: The background and foreground color of the flymake-posframe frame.
