@@ -73,6 +73,11 @@
   :group 'flymake-posframe
   :type 'integer)
 
+(defcustom flymake-posframe-border-color "#fff"
+  "Border color of the child frame."
+  :group 'flymake-posframe
+  :type 'string)
+
 (defcustom flymake-posframe-internal-border-width 6
   "Number of the internal border width for the flymake posframe."
   :group 'flymake-posframe
@@ -160,6 +165,7 @@
           (posframe-show
            flymake-posframe-buffer
            :internal-border-width flymake-posframe-internal-border-width
+           :border-color flymake-posframe-border-color
            :max-width flymake-posframe-max-width
            :max-height flymake-posframe-max-height
            :timeout flymake-posframe-timeout
