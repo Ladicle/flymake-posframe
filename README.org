@@ -27,7 +27,6 @@ Showing flymake diagnostics at point using posframe
 - flymake-posframe-max-width :: Maximum number of the flymake posframe width.
 - flymake-posframe-max-height :: Maximum number of the flymake posframe height.
 - flymake-posframe-parameters :: The frame parameters used by flymake-posframe.
-- flymake-posframe-border-color :: Color of the posframe border.
 
 *faces*
 
@@ -36,3 +35,4 @@ Showing flymake diagnostics at point using posframe
 - flymake-posframe-prefix-warning-face :: The prefix face for the flymake-posframe warning dialog.
 - flymake-posframe-prefix-note-face :: The prefix face for the flymake-posframe default dialog.
 - flymake-posframe-prefix-default-face :: The prefix face for the flymake-posframe default dialog.
+- flymake-posframe-border-face :: The color of the posframe border (*only* background is used).
