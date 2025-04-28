@@ -35,3 +35,4 @@ Showing flymake diagnostics at point using posframe
 - flymake-posframe-prefix-warning-face :: The prefix face for the flymake-posframe warning dialog.
 - flymake-posframe-prefix-note-face :: The prefix face for the flymake-posframe default dialog.
 - flymake-posframe-prefix-default-face :: The prefix face for the flymake-posframe default dialog.
+- flymake-posframe-border-face :: The color of the posframe border (*only* background is used).

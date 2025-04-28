@@ -125,6 +125,12 @@
   "The prefix face for the flymake-posframe default dialog."
   :group 'flymake-posframe)
 
+(defface flymake-posframe-border-face
+  '((t :background "#fff"))
+  "The border color of the child frame."
+  :group 'flymake-posframe
+  :type 'string)
+
 (defun flymake-posframe-get-diagnostic-text ()
   "Get the flymake diagnostic text for the thing at point."
   (flymake--diag-text (get-char-property (point) 'flymake-diagnostic)))
@@ -160,6 +166,7 @@
           (posframe-show
            flymake-posframe-buffer
            :internal-border-width flymake-posframe-internal-border-width
+           :border-color (face-background 'flymake-posframe-border-face nil t)
            :max-width flymake-posframe-max-width
            :max-height flymake-posframe-max-height
            :timeout flymake-posframe-timeout
