@@ -125,7 +125,7 @@
   "The prefix face for the flymake-posframe default dialog."
   :group 'flymake-posframe)
 
-(defcustom flymake-posframe-border-face
+(defface flymake-posframe-border-face
   '((t :background "#fff"))
   "The border color of the child frame."
   :group 'flymake-posframe
