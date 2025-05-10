@@ -126,10 +126,9 @@
   :group 'flymake-posframe)
 
 (defface flymake-posframe-border-face
-  '((t :background "#fff"))
+  '((t :inherit vertical-border))
   "The border color of the child frame."
-  :group 'flymake-posframe
-  :type 'string)
+  :group 'flymake-posframe)
 
 (defun flymake-posframe-get-diagnostic-text ()
   "Get the flymake diagnostic text for the thing at point."
